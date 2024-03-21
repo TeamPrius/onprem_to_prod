@@ -2,11 +2,13 @@
 
 #  autoscaling group
 resource "aws_autoscaling_group" "autoscaling_group" {
+  name                = "autoscaling_group"
   desired_capacity    = 2 # desired number of instances at a given time
-  max_size            = 5 # maximum number of instances group should have
+  max_size            = 2 # maximum number of instances group should have
   min_size            = 2 # minimum number of instances group should have
   vpc_zone_identifier = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_3.id]
-  target_group_arns   = [aws_lb_target_group.prod_vpclb_target_group.arn]
+  target_group_arns   = ["${aws_lb_target_group.prod_vpclb_target_group.arn}"]
+  health_check_type   = "EC2"
 
   launch_template {
     id      = aws_launch_template.launch_template.id
@@ -27,13 +29,15 @@ resource "aws_launch_template" "launch_template" {
 
     ebs {
       volume_size = 5
+      volume_type = "gp3"
     }
   }
 
   network_interfaces {
+    device_index                = 0
     associate_public_ip_address = false
-    subnet_id                   = aws_subnet.private_subnet_1.id
-    security_groups             = [aws_security_group.business_logic_layer_sg.id]
+    #subnet_id                   = aws_subnet.private_subnet_1.id
+    security_groups             = ["${aws_security_group.business_logic_layer_sg.id}"]
   }
 
   tag_specifications {

@@ -31,25 +31,25 @@ resource "aws_instance" "jump_tier_availability_zone_1" {
 # Availability Zone 2
 
 
-resource "aws_instance" "jump_tier_availability_zone_2" {
-  ami                         = data.aws_ami.amazonlinux2023.id                                   # ami
-  instance_type               = "t2.micro"                                                        # ami instance type
-  subnet_id                   = aws_subnet.public_subnet_2.id                                     # get public subnet id
-  availability_zone           = "us-east-1b"                                                      # get availability zone
-  associate_public_ip_address = true                                                              # gives public ip address
-  vpc_security_group_ids      = ["${aws_security_group.presentation_layer_sg_availability_zone_2.id}"] # get security group id
-  key_name                    = aws_key_pair.ssh_key.id
-
-  user_data = filebase64("./userdata.sh")
-  metadata_options {
-    http_tokens   = "optional" # optional tokens
-    http_endpoint = "enabled"
-  }
-
-  tags = {
-    Name = "Jump Tier Availability Zone 2" # creates name
-  }
-}
+#resource "aws_instance" "jump_tier_availability_zone_2" {
+#  ami                         = data.aws_ami.amazonlinux2023.id                                   # ami
+#  instance_type               = "t2.micro"                                                        # ami instance type
+#  subnet_id                   = aws_subnet.public_subnet_2.id                                     # get public subnet id
+#  availability_zone           = "us-east-1b"                                                      # get availability zone
+#  associate_public_ip_address = true                                                              # gives public ip address
+#  vpc_security_group_ids      = ["${aws_security_group.presentation_layer_sg_availability_zone_2.id}"] # get security group id
+#  key_name                    = aws_key_pair.ssh_key.id
+#
+#  user_data = filebase64("./userdata.sh")
+#  metadata_options {
+#    http_tokens   = "optional" # optional tokens
+#    http_endpoint = "enabled"
+#  }
+#
+#  tags = {
+#    Name = "Jump Tier Availability Zone 2" # creates name
+#  }
+#}
 ###########################################################################################
 
 

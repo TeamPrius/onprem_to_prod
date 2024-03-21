@@ -17,10 +17,10 @@ resource "aws_route_table" "onprem_transit_gateway_route" {
     gateway_id = aws_internet_gateway.onprem_igw.id
   }
 
-  route {
-    cidr_block         = aws_subnet.private_subnet_nonprod.cidr_block       # put aws_vpc.nonprod_vpc.cidr_block
-    transit_gateway_id = aws_ec2_transit_gateway.transit_gateway.id
-  }
+  #route {
+  #  cidr_block         = aws_subnet.private_subnet_nonprod.cidr_block       # put aws_vpc.nonprod_vpc.cidr_block
+  #  transit_gateway_id = aws_ec2_transit_gateway.transit_gateway.id
+  #}
 }
 
 
