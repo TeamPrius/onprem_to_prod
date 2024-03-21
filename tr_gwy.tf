@@ -18,11 +18,3 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "prod_attachment" {
   vpc_id             = aws_vpc.prod_vpc.id
   subnet_ids         = [aws_subnet.public_subnet_1.id, aws_subnet.public_subnet_2.id]
 }
-
-
-# Attach nonprod VPC to Transit Gateway
-resource "aws_ec2_transit_gateway_vpc_attachment" "nonprod_attachment" {
-  transit_gateway_id = aws_ec2_transit_gateway.transit_gateway.id
-  vpc_id             = aws_vpc.nonprod.id
-  subnet_ids         = [aws_subnet.private_subnet_nonprod.id]
-}
